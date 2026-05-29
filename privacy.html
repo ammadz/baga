@@ -1,144 +1,255 @@
-<h1>Privacy Policy</h1>                                                                                                      
-  <p>Last updated: May 28, 2026</p>                                                                                            
-                                                    
-  <p>This Privacy Policy describes how Baga ("we", "us", "our") collects, uses, and shares information when you use the Baga   
-  iOS application (the "App"). By using the App you agree to the practices described below.</p>
-                                                                                                                               
-  <h2>Definitions</h2>                   
-  <ul>
-    <li><strong>App</strong> means Baga, the iOS card-game application.</li>
-    <li><strong>Personal Data</strong> means information that identifies you or could reasonably be linked to you.</li>        
-    <li><strong>You</strong> means the individual using the App.</li>
-  </ul>                                                                                                                        
-                                                    
-  <h2>Information We Collect</h2>                                                                                              
-                                         
-  <h3>Information You Provide</h3>
-  <ul>
-    <li><strong>Sign in with Apple identifier.</strong> Signing in with Apple is required to use the App. Apple gives us a
-  stable anonymous user identifier for you. Apple may additionally share your name and email if you allow it; if you choose    
-  Apple's "Hide My Email" option, we only ever see Apple's private relay address.</li>
-    <li><strong>Display name.</strong> The name you choose to appear with at the table. It is shown to other players in any    
-  room you join.</li>                                                                                                          
-    <li><strong>Profile photo (optional).</strong> If you choose to add an avatar, the photo you select (from your camera or
-  photo library) is uploaded to Firebase Storage and shown to other players in any room you join.</li>                         
-  </ul>                                             
-                                                                                                                               
-  <h3>Information We Generate as You Play</h3>
-  <ul>
-    <li><strong>Gameplay data.</strong> Cards played, tricks won, round and game results, and your role in each game. Used to
-  run the game in real time and to compute aggregated leaderboard and history statistics.</li>                                 
-    <li><strong>In-room chat, reactions, and voice clips.</strong> Text messages, quick reactions, and short push-to-talk voice
-   clips you send to the other players at your table while a game is in progress. Visible or audible only to the other players 
-  in that same room.</li>                           
-    <li><strong>Diagnostic logs.</strong> Local error and event logs that help us debug problems. These are kept for a short   
-  period and contain no information beyond your in-app identifier.</li>                                                        
-  </ul>                                             
-                                                                                                                               
-  <h3>Information We Do Not Collect</h3>                                                                                       
-  <ul>                                              
-    <li>We do not use third-party advertising or tracking SDKs and we do not request the App Tracking Transparency             
-  permission.</li>                                                                                                             
-    <li>We do not collect your precise location.</li>
-    <li>We do not sell your information.</li>                                                                                  
-  </ul>                                  
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Baga — Privacy Policy</title>
+<meta name="description" content="Privacy policy for Baga, a private four-player trick-taking card game for iOS.">
+<style>
+  :root {
+    color-scheme: light dark;
+    --bg: #ffffff;
+    --fg: #1c1c1e;
+    --muted: #6b6b70;
+    --rule: #e5e5ea;
+    --accent: #b8860b;
+    --card: #f7f7f8;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1c1c1e;
+      --fg: #f2f2f7;
+      --muted: #9b9ba1;
+      --rule: #2c2c2e;
+      --accent: #d4a437;
+      --card: #2a2a2c;
+    }
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font: 16px/1.55 -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    padding: 48px 20px 80px;
+  }
+  main { max-width: 640px; margin: 0 auto; }
+  header { margin-bottom: 40px; }
+  h1 {
+    font: 600 32px/1.2 -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
+    margin: 0 0 6px;
+    letter-spacing: -0.02em;
+  }
+  header p {
+    color: var(--muted);
+    margin: 0;
+    font-size: 17px;
+  }
+  h2 {
+    font: 600 20px/1.3 -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
+    margin: 40px 0 12px;
+    letter-spacing: -0.01em;
+  }
+  p, li { color: var(--fg); }
+  p { margin: 0 0 12px; }
+  ul { padding-left: 22px; margin: 0 0 12px; }
+  li { margin-bottom: 6px; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .card {
+    background: var(--card);
+    border-radius: 14px;
+    padding: 20px 22px;
+    margin: 16px 0;
+  }
+  .contact {
+    font-size: 18px;
+    font-weight: 500;
+  }
+  details {
+    border-top: 1px solid var(--rule);
+    padding: 14px 0;
+  }
+  details:last-of-type { border-bottom: 1px solid var(--rule); }
+  summary {
+    cursor: pointer;
+    font-weight: 500;
+    list-style: none;
+    padding-right: 24px;
+    position: relative;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::after {
+    content: "+";
+    position: absolute;
+    right: 0;
+    top: 0;
+    font-weight: 400;
+    color: var(--muted);
+    transition: transform 0.15s;
+  }
+  details[open] summary::after { content: "−"; }
+  details > p, details > ul { margin-top: 10px; }
+  footer {
+    margin-top: 56px;
+    padding-top: 24px;
+    border-top: 1px solid var(--rule);
+    color: var(--muted);
+    font-size: 14px;
+  }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Privacy Policy</h1>
+    <p>Last updated: 29 May 2026</p>
+  </header>
 
-  <h2>Device Permissions</h2>
-  <p>The App requests the following iOS permissions only when needed for the specific feature you are using. You may deny any
-  of them; the rest of the App will continue to work and the relevant feature will be unavailable.</p>                         
-  <ul>                                              
-    <li><strong>Camera.</strong> Used only if you choose to take a new profile photo for your in-game avatar.</li>             
-    <li><strong>Photo Library.</strong> Used only if you choose to pick an existing photo from your library as your in-game    
-  avatar.</li>                                                                                                                 
-    <li><strong>Microphone.</strong> Used only while you hold the push-to-talk button to send a voice clip to the other players
-   at your table.</li>                                                                                                         
-    <li><strong>Local Network.</strong> Used so the App can keep voice clips and game updates flowing quickly between you and
-  the other players at your table.</li>                                                                                        
-    <li><strong>Notifications (optional).</strong> Used to let you know when it is your turn or a game event needs your
-  attention.</li>                                                                                                              
-  </ul>                                  
+  <p>
+    Baga is a private, invite-only four-player card game for iOS. This policy
+    explains what information the app collects, why, where it is stored, and
+    your choices around it. The short version: we collect only what is needed
+    to run multiplayer games, we don't sell data, we don't run third-party
+    analytics, and we don't share anything with advertisers.
+  </p>
 
-  <h2>How We Use Information</h2>                                                                                              
-  <ul>                                              
-    <li>To run multiplayer games in real time and route plays, chat, reactions, and voice between players at the same          
-  table.</li>                                                                                                                  
-    <li>To maintain your account, profile, and leaderboard ranking.</li>
-    <li>To show you your own game history and aggregated statistics.</li>                                                      
-    <li>To detect and prevent abuse (for example, names blocked from public lobbies, and accounts suspended under our Fair Play
-   Policy).</li>                                                                                                               
-    <li>To fix bugs, monitor reliability, and improve gameplay.</li>                                                           
-  </ul>                                                                                                                        
-  <p>We do not use your information for advertising, profiling, or automated decision-making with legal effects.</p>
-                                                                                                                               
-  <h2>How We Share Information</h2>                 
-                                                                                                                               
-  <h3>With Other Players</h3>            
-  <p>When you join or create a room, your display name and profile photo are visible to the other players in that room.
-  Anything you send through the in-room chat, reactions, or push-to-talk during a game is visible or audible to those          
-  players.</p>                                      
-                                                                                                                               
-  <h3>With Service Providers</h3>                                                                                              
-  <p>We rely on the following third parties to operate the App. They process the data described above on our behalf and under
-  their own privacy commitments:</p>                                                                                           
-  <ul>                                              
-    <li><strong>Apple Inc.</strong> — Sign in with Apple, the App Store, and Apple Push Notifications.</li>                    
-    <li><strong>Google LLC (Firebase).</strong> Firebase Realtime Database and Firebase Storage host your profile, game state,
-  leaderboard, history, chat, and any uploaded avatar.</li>                                                                    
-  </ul>                                             
-  <p>We do not share Personal Data with advertisers, data brokers, or marketing partners.</p>                                  
-                                         
-  <h3>For Legal Reasons</h3>                                                                                                   
-  <p>We may disclose information where we believe disclosure is reasonably necessary to (a) comply with a legal obligation or
-  valid government request, (b) protect the rights, property, or safety of users or the public, or (c) detect, prevent, or     
-  address fraud, security, or technical issues.</p> 
-                                                                                                                               
-  <h2>International Transfers</h2>                                                                                             
-  <p>The Firebase Realtime Database that powers the App is hosted in Google's asia-southeast1 region. If you access the App
-  from another region, your information will be transferred to and stored on servers operated by Google in that region. Where  
-  required by law we rely on standard contractual safeguards for those transfers.</p>
-                                                                                                                               
-  <h2>Data Retention</h2>                
-  <ul>
-    <li><strong>Account and profile</strong> — kept for the lifetime of your account, and up to 24 months after deletion to
-  resolve any post-termination issues.</li>                                                                                    
-    <li><strong>Active game state</strong> — kept only while the game is in progress. Abandoned rooms are automatically ended
-  and removed by a background sweep.</li>                                                                                      
-    <li><strong>Completed game history and leaderboard aggregates</strong> — kept while your account is active so you can
-  browse your own history; removed when you delete your account.</li>                                                          
-    <li><strong>Chat, reactions, and voice clips</strong> — kept only for the duration of the game in which they were
-  sent.</li>                                                                                                                   
-    <li><strong>Diagnostic logs</strong> — automatically deleted after a short retention window.</li>
-  </ul>                                                                                                                        
-                                                    
-  <h2>Your Rights and Choices</h2>                                                                                             
-                                         
-  <h3>Account Deletion</h3>                                                                                                    
-  <p>You can delete your account at any time from inside the App: open <strong>Settings</strong> and tap <strong>Delete
-  Account</strong>. Deleting your account removes your profile, leaderboard record, game history, and any uploaded avatar from 
-  our active systems. Residual copies may remain in encrypted backups for a limited period as part of routine backup retention
-  and are not restored except where necessary for security or legal compliance.</p>                                            
-                                         
-  <h3>Other Rights</h3>
-  <p>Depending on where you live, you may have the right to access, correct, restrict, or object to the processing of your
-  Personal Data, or to lodge a complaint with a data protection authority. You can exercise these rights, or ask any question  
-  about this policy, by emailing us at the address below.</p>
-                                                                                                                               
-  <h2>Children</h2>                                                                                                            
-  <p>The App is not directed to children under the age of 13, and we do not knowingly collect Personal Data from children under
-   13. Where local law (for example, the GDPR) sets a higher digital-consent age, we apply that higher threshold. If you       
-  believe a child has provided Personal Data to us, please contact us and we will delete the information.</p>
-                                                                                                                               
-  <h2>Security</h2>                      
-  <p>We use commercially reasonable technical and organizational measures, including transport-layer encryption and Firebase
-  Security Rules, to protect your information. No method of transmission or storage is 100% secure, however, and we cannot     
-  guarantee absolute security.</p>                  
-                                                                                                                               
-  <h2>Changes to This Policy</h2>        
-  <p>We may update this Privacy Policy from time to time. Material changes will be reflected in a new "Last updated" date at
-  the top of this page, and where appropriate we will surface a notice in the App before the change takes effect.</p>          
-                                                    
-  <h2>Contact Us</h2>                                                                                                          
-  <p>If you have any questions about this Privacy Policy or our handling of your Personal Data, contact us at:</p>
-  <ul>                                                                                                                         
-    <li>Email: <a href="mailto:contact@ahmedfaiz.com">contact@ahmedfaiz.com</a></li>
-  </ul> 
+  <h2>What we collect</h2>
+
+  <details>
+    <summary>Profile information</summary>
+    <ul>
+      <li><strong>Display name</strong> — shown to other players at your table.</li>
+      <li><strong>Profile photo (optional)</strong> — stored in Firebase Storage and shown as your in-game avatar.</li>
+      <li><strong>Anonymous player ID</strong> — a random identifier created on first launch and stored on your device, used to link your profile, stats, and game history.</li>
+      <li><strong>Apple ID (optional)</strong> — if you choose Sign in with Apple, we adopt Apple's anonymised user identifier so your profile follows you across devices. We never receive your real email address unless you provide it manually.</li>
+    </ul>
+  </details>
+
+  <details>
+    <summary>Game data</summary>
+    <ul>
+      <li><strong>Live game state</strong> — your hand, seat, plays, and round results are written to Firebase Realtime Database so all four players see the same table in real time. The data persists until the room is closed.</li>
+      <li><strong>Game history</strong> — completed games are stored against your player ID so you can review past rounds in the History screen.</li>
+      <li><strong>Leaderboard counters</strong> — aggregate wins, losses, and Bagas, shown on the in-app Leaderboard.</li>
+      <li><strong>Chat and reactions</strong> — text and emoji reactions sent in a game room.</li>
+    </ul>
+  </details>
+
+  <details>
+    <summary>Device permissions</summary>
+    <p>
+      Baga requests these iOS permissions only when you use the feature that
+      needs them. Declining a permission disables that feature; it doesn't
+      prevent you from using the rest of the app.
+    </p>
+    <ul>
+      <li><strong>Camera</strong> — only used to take a profile photo.</li>
+      <li><strong>Photo Library</strong> — only used to pick a profile photo.</li>
+      <li><strong>Microphone</strong> — only used while push-to-talk voice chat is active during a game.</li>
+      <li><strong>Local Network</strong> — used so voice clips and game updates can flow quickly between players on the same network, and to discover the development Metro server in the development build.</li>
+      <li><strong>Notifications</strong> — used to alert you when a friend starts a game so you can drop in.</li>
+    </ul>
+  </details>
+
+  <details>
+    <summary>What we do not collect</summary>
+    <ul>
+      <li>No location data.</li>
+      <li>No contacts.</li>
+      <li>No advertising identifiers (IDFA).</li>
+      <li>No third-party analytics or tracking SDKs.</li>
+      <li>No payment information — Baga is free and has no in-app purchases.</li>
+    </ul>
+  </details>
+
+  <h2>Where data is stored</h2>
+  <p>
+    Game state, profiles, and leaderboard data are stored in
+    <strong>Google Firebase</strong> (Realtime Database and Cloud Storage),
+    which acts as our hosting provider. Firebase's privacy practices are
+    described at
+    <a href="https://firebase.google.com/support/privacy">firebase.google.com/support/privacy</a>.
+    Your anonymous player ID is also stored on your device in iOS local
+    storage so the app can recognise you on next launch.
+  </p>
+
+  <h2>Who we share data with</h2>
+  <p>
+    We do not sell, rent, or share your data with third parties for marketing.
+    Information you put into a game room (your display name, avatar, plays,
+    chat messages) is visible to the other players at your table — that is the
+    point of a multiplayer game. The Leaderboard and Active Games screens show
+    display names and avatars to other Baga users.
+  </p>
+
+  <h2>Your choices</h2>
+
+  <details>
+    <summary>Change your display name or photo</summary>
+    <p>
+      Open the Profile screen in the app and edit your name or tap your avatar
+      to choose a new photo. Changes propagate to all rooms you join after.
+    </p>
+  </details>
+
+  <details>
+    <summary>Sign out of Apple</summary>
+    <p>
+      From the Profile screen, sign out of Apple to unlink your profile from
+      the Apple identifier. Your local anonymous player ID continues to work.
+    </p>
+  </details>
+
+  <details>
+    <summary>Delete your data</summary>
+    <p>
+      Email <a href="mailto:ammadz@me.com?subject=Delete%20my%20Baga%20data">ammadz@me.com</a>
+      with the subject "Delete my Baga data" and include the display name on
+      your profile. We will remove your profile, leaderboard record, and game
+      history within 7 days. Records of games you played in are stored against
+      your player ID, so removing your ID removes your involvement from those
+      records as well.
+    </p>
+  </details>
+
+  <details>
+    <summary>Stealth Mode</summary>
+    <p>
+      Hosts can enable Stealth Mode on a room from the lobby gear icon. The
+      room is hidden from Active Games (room code only), and the result is
+      skipped on the Leaderboard and Game History.
+    </p>
+  </details>
+
+  <h2>Children</h2>
+  <p>
+    Baga is not directed at children under 13. We do not knowingly collect
+    information from children under 13. If you believe a child has provided
+    personal information through Baga, please contact us and we will delete
+    the information.
+  </p>
+
+  <h2>Changes to this policy</h2>
+  <p>
+    If we make material changes to this policy, we will update the date at the
+    top and, where appropriate, notify users in the app. Continued use of Baga
+    after a change means you accept the updated policy.
+  </p>
+
+  <h2>Contact</h2>
+  <div class="card">
+    <p class="contact"><a href="mailto:ammadz@me.com?subject=Baga%20privacy">ammadz@me.com</a></p>
+    <p style="margin: 0; color: var(--muted); font-size: 14px;">
+      Use this address for any privacy question, data export request, or data
+      deletion request.
+    </p>
+  </div>
+
+  <footer>
+    &copy; Baga. Made for friends and family. &middot; <a href="./index.html">Support</a>
+  </footer>
+</main>
+</body>
+</html>
