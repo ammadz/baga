@@ -120,10 +120,9 @@
   <details>
     <summary>Profile information</summary>
     <ul>
+      <li><strong>Apple ID (required)</strong> — Baga uses Sign in with Apple as its only sign-in method. We adopt Apple's anonymised user identifier as your in-app player ID so your profile follows you across devices and reinstalls. We never receive your real email address unless you choose to provide it.</li>
       <li><strong>Display name</strong> — shown to other players at your table.</li>
       <li><strong>Profile photo (optional)</strong> — stored in Firebase Storage and shown as your in-game avatar.</li>
-      <li><strong>Anonymous player ID</strong> — a random identifier created on first launch and stored on your device, used to link your profile, stats, and game history.</li>
-      <li><strong>Apple ID (optional)</strong> — if you choose Sign in with Apple, we adopt Apple's anonymised user identifier so your profile follows you across devices. We never receive your real email address unless you provide it manually.</li>
     </ul>
   </details>
 
@@ -197,8 +196,12 @@
   <details>
     <summary>Sign out of Apple</summary>
     <p>
-      From the Profile screen, sign out of Apple to unlink your profile from
-      the Apple identifier. Your local anonymous player ID continues to work.
+      Because Sign in with Apple is the only sign-in method, signing out
+      ends your Baga session entirely. Re-authorise from the launch screen
+      next time you want to play. If you want to disconnect Baga from your
+      Apple ID more permanently, you can revoke access from
+      iOS Settings → your name → Sign in with Apple → Baga → Stop Using
+      Apple ID.
     </p>
   </details>
 
