@@ -1,0 +1,15 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": [
+          "66PQZ8XBT3.com.faiz.dhihaeh.app",
+          "66PQZ8XBT3.com.faiz.dhihaeh.app.dev"
+        ],
+        "components": [
+          { "/": "/join/*" }
+        ]
+      }
+    ]
+  }
+}
