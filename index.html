@@ -3,7 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Baga — the game you know and love…</title>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8N7V9S740S"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-8N7V9S740S');
+</script>
+<title>Baga: the game you know and love…</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,500;1,9..144,600&family=Inter:wght@300;400;500;600;700;800&family=Dancing+Script:wght@500;600;700&display=swap" rel="stylesheet">
@@ -202,6 +210,27 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:2
   h2{font-size:clamp(30px,8vw,42px)}
   footer .wrap{justify-content:center;text-align:center}
 }
+.modal{position:fixed;inset:0;z-index:1000;display:none;align-items:center;justify-content:center;padding:24px}
+.modal.open{display:flex}
+.modal-backdrop{position:absolute;inset:0;background:rgba(0,0,0,.72);backdrop-filter:blur(4px)}
+.modal-card{position:relative;width:100%;max-width:400px;max-height:90vh;overflow:auto;background:linear-gradient(180deg,var(--panel2),var(--panel));border:1px solid var(--line);border-radius:18px;padding:32px 26px 26px;box-shadow:0 40px 120px rgba(0,0,0,.6);animation:modalIn .24s ease}
+@keyframes modalIn{from{opacity:0;transform:translateY(12px) scale(.985)}to{opacity:1;transform:none}}
+.modal-x{position:absolute;top:11px;right:13px;background:none;border:0;color:var(--muted);font-size:26px;line-height:1;cursor:pointer;padding:4px 8px;border-radius:8px}
+.modal-x:hover{color:var(--cream)}
+.modal-card h3{font-family:'Fraunces',serif;font-size:26px;font-weight:600;margin:0 0 7px;color:var(--cream)}
+.modal-sub{color:var(--muted);font-size:14.5px;margin:0 0 18px;line-height:1.5}
+.modal-card label{display:block;font-size:12.5px;color:var(--muted);margin:2px 0 6px;letter-spacing:.02em}
+.modal-card .req{color:var(--gold)}
+.modal-card input,.modal-card textarea{width:100%;background:var(--ink);border:1px solid var(--line);border-radius:12px;padding:13px 15px;color:var(--cream);font:inherit;font-size:15px;margin-bottom:12px}
+.modal-card textarea{min-height:84px;resize:vertical;line-height:1.5}
+.modal-card input:focus,.modal-card textarea:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(231,194,91,.15)}
+.modal-card input::placeholder,.modal-card textarea::placeholder{color:#6c6c76}
+.modal-card .btn{font-family:inherit;cursor:pointer}
+.modal-card .btn:disabled{opacity:.6;cursor:default;transform:none}
+.modal-msg{font-size:13.5px;margin:13px 0 0;line-height:1.5}
+.modal-msg.ok{color:var(--gold-soft)}
+.modal-msg.err{color:var(--red)}
+.modal-msg a{color:var(--gold);text-decoration:underline}
 </style>
 <noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
 </head>
@@ -215,7 +244,8 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:2
     <p class="hero-tagline reveal in" data-d="1">The game you know and love&hellip;</p>
     <p class="lede reveal in" data-d="2">A game built around sweeping 10s, and a hidden Power Suit to rule the game. Gather three, deal in, and read the table to get your Baga on!</p>
     <div class="cta reveal in" data-d="3">
-      <a class="btn btn-gold" href="#round">See how a round plays &rarr;</a>
+      <a class="btn btn-gold" href="#request" data-open-modal>Get your Baga ON &rarr;</a>
+      <a class="btn btn-ghost" href="#round">See how a round plays &rarr;</a>
       <a class="btn btn-ghost" href="#cheat">The cheat rule</a>
     </div>
     <div class="invite reveal in" data-d="4"><span class="dot"></span> Unlisted on the App Store &mdash; invite only.</div>
@@ -291,8 +321,7 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:2
   <p class="sub reveal" data-d="1">Baga is distributed as an unlisted App Store app. It isn&rsquo;t meant for general discovery &mdash; there&rsquo;s no store page to stumble onto, no feed to surface it.</p>
   <p class="quote reveal" data-d="2">&ldquo;If you have the link, you were invited.&rdquo;</p>
   <div class="cta reveal" data-d="3" style="justify-content:center">
-    <!-- TODO: replace REPLACE_WITH_INVITE_LINK with your real App Store invite / waitlist URL -->
-    <a class="btn btn-gold" href="#hero">Get your Baga ON &rarr;</a>
+    <a class="btn btn-gold" href="#request" id="getBagaBtn" data-open-modal>Get your Baga ON &rarr;</a>
     <a class="btn btn-ghost" href="#round">Learn how to play</a>
   </div>
 </div></section>
@@ -302,6 +331,24 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:2
   <div class="fsuits">&clubs; <span class="r">&diams;</span> &spades; <span class="r">&hearts;</span></div>
 </div></footer>
 
+<div class="modal" id="reqModal" aria-hidden="true">
+  <div class="modal-backdrop" data-close></div>
+  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="reqTitle">
+    <button class="modal-x" type="button" aria-label="Close" data-close>&times;</button>
+    <h3 id="reqTitle">Get your Baga on</h3>
+    <p class="modal-sub">Baga is invite-only. Tell us a little and we&rsquo;ll send your link.</p>
+    <form id="reqForm" novalidate>
+      <label for="reqEmail">Email <span class="req">*</span></label>
+      <input type="email" id="reqEmail" name="email" placeholder="you@email.com" autocomplete="email" required>
+      <label for="reqReason">Why you should be at the table <span class="req">*</span></label>
+      <textarea id="reqReason" name="reason" placeholder="A line or two" required></textarea>
+      <label for="reqRef">How did you hear about Baga? <span class="req">*</span></label>
+      <input type="text" id="reqRef" name="referral" placeholder="Friend, social media, etc." required>
+      <button class="btn btn-gold" id="reqSubmit" type="submit" style="width:100%;justify-content:center">Request the link</button>
+    </form>
+    <p class="modal-msg" id="reqMsg" role="status" aria-live="polite"></p>
+  </div>
+</div>
 <script>
 const reveals=document.querySelectorAll('.reveal:not(.in)');
 if('IntersectionObserver' in window){
@@ -313,6 +360,52 @@ reveals.forEach(el=>el.classList.add('in'));
 // subtle parallax tilt on hero phone
 const hp=document.querySelector('.hero-logo');
 window.addEventListener('mousemove',e=>{if(window.innerWidth<900||!hp)return;const x=(e.clientX/window.innerWidth-.5);const y=(e.clientY/window.innerHeight-.5);hp.style.transform=`translate(${x*-12}px,${y*-9}px)`;});
+// invite-request modal
+(function(){
+  // 1) Paste your Formspree form ID below (https://formspree.io). 2) Set your contact email for the fallback.
+  const FORM_ENDPOINT="https://formspree.io/f/mzdqeeyz";
+  const CONTACT_EMAIL="support@bagame.app";
+  const modal=document.getElementById('reqModal');
+  if(!modal) return;
+  const emailEl=document.getElementById('reqEmail');
+  const reasonEl=document.getElementById('reqReason');
+  const refEl=document.getElementById('reqRef');
+  const msgEl=document.getElementById('reqMsg');
+  const submitBtn=document.getElementById('reqSubmit');
+  const form=document.getElementById('reqForm');
+  const subEl=modal.querySelector('.modal-sub');
+  const submitText=submitBtn.textContent;
+  let lastFocus=null;
+  function resetForm(){ form.style.display=''; if(subEl)subEl.style.display=''; setMsg('',''); submitBtn.disabled=false; submitBtn.textContent=submitText; }
+  function openModal(e){ if(e)e.preventDefault(); resetForm(); lastFocus=document.activeElement; modal.classList.add('open'); modal.setAttribute('aria-hidden','false'); setTimeout(()=>emailEl&&emailEl.focus(),40); }
+  function closeModal(){ modal.classList.remove('open'); modal.setAttribute('aria-hidden','true'); if(lastFocus&&lastFocus.focus)lastFocus.focus(); }
+  document.querySelectorAll('[data-open-modal]').forEach(b=>b.addEventListener('click',openModal));
+  modal.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',closeModal));
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape'&&modal.classList.contains('open'))closeModal(); });
+  function setMsg(html,cls){ msgEl.innerHTML=html; msgEl.className='modal-msg '+(cls||''); }
+  form.addEventListener('submit',async e=>{
+    e.preventDefault();
+    const email=(emailEl.value||'').trim();
+    const reason=(reasonEl.value||'').trim();
+    const referral=(refEl.value||'').trim();
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ setMsg('Please enter a valid email.','err'); emailEl.focus(); return; }
+    if(reason.length<3){ setMsg('Tell us why you should be at the table.','err'); reasonEl.focus(); return; }
+    if(!referral){ setMsg('Let us know how you heard about Baga.','err'); refEl.focus(); return; }
+    const orig=submitBtn.textContent; submitBtn.disabled=true; submitBtn.textContent='Sending\u2026';
+    try{
+      if(FORM_ENDPOINT.indexOf('REPLACE_WITH')>-1) throw new Error('unconfigured');
+      const fd=new FormData(); fd.append('email',email); fd.append('reason',reason); fd.append('referral',referral); fd.append('_subject','New Baga invite request');
+      const r=await fetch(FORM_ENDPOINT,{method:'POST',headers:{'Accept':'application/json'},body:fd});
+      if(!r.ok) throw new Error('bad status');
+      form.style.display='none';
+      if(subEl)subEl.style.display='none';
+      setMsg("Thank you. Your request is now in review. If your reason makes the cut, your invite link will arrive in your inbox.",'ok');
+    }catch(err){
+      setMsg('Couldn\u2019t submit just now \u2014 email <a href="mailto:'+CONTACT_EMAIL+'?subject=Baga%20invite%20request">'+CONTACT_EMAIL+'</a> and we\u2019ll send your link.','err');
+      submitBtn.disabled=false; submitBtn.textContent=orig;
+    }
+  });
+})();
 </script>
 </body>
 </html>
