@@ -1,1 +1,248 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+<meta name="theme-color" content="#0a0a0c" />
+<title>Request access — Baga</title>
+<style>
+  :root {
+    --bg:      #0a0a0c;
+    --bg-card: #16161a;
+    --gold:    #c9a84c;
+    --gold-2:  #e6c659;
+    --text:    #f5f5f7;
+    --textSub: #a3a3a8;
+    --textDim: #6b6b71;
+    --border:  #2a2a30;
+    --danger:  #ff453a;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  body {
+    min-height: 100vh;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  main {
+    width: 100%;
+    max-width: 460px;
+    margin-top: 32px;
+  }
+  h1 {
+    margin: 0 0 6px;
+    font-size: 24px;
+    font-weight: 900;
+    letter-spacing: 0.3px;
+  }
+  .sub {
+    color: var(--gold);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin: 0 0 18px;
+  }
+  p.body {
+    color: var(--textSub);
+    font-size: 14px;
+    line-height: 21px;
+    margin: 0 0 22px;
+  }
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  label {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    color: var(--textSub);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+  input[type="text"], textarea {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 14px;
+    color: var(--text);
+    font-size: 15px;
+    font-family: inherit;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+  input[type="text"]:focus, textarea:focus {
+    outline: none;
+    border-color: var(--gold);
+  }
+  textarea {
+    min-height: 96px;
+    resize: vertical;
+  }
+  .id-chip {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 10px 14px;
+    color: var(--textDim);
+    font-size: 12px;
+    font-variant-numeric: tabular-nums;
+    word-break: break-all;
+  }
+  .id-chip strong {
+    display: block;
+    font-size: 10px;
+    font-weight: 800;
+    color: var(--textSub);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  button {
+    margin-top: 8px;
+    padding: 14px 28px;
+    border-radius: 999px;
+    background: var(--gold);
+    color: var(--bg);
+    font-size: 15px;
+    font-weight: 900;
+    letter-spacing: 0.5px;
+    border: none;
+    cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+  button:disabled { opacity: 0.4; cursor: default; }
+  .status {
+    margin-top: 16px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    font-size: 14px;
+    line-height: 20px;
+    display: none;
+  }
+  .status.show { display: block; }
+  .status.ok    { background: rgba(201,168,76,0.12); color: var(--gold-2); border: 1px solid var(--gold); }
+  .status.err   { background: rgba(255,69,58,0.12); color: var(--danger); border: 1px solid var(--danger); }
+  .app-icon {
+    display: block;
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    margin: 0 auto 18px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.35), 0 0 0 1px var(--border);
+    object-fit: cover;
+  }
+</style>
+</head>
+<body>
+<main>
+  <img class="app-icon" src="./icon.jpg" alt="Baga" />
+  <h1>Request access</h1>
+  <p class="sub">BY INVITATION ONLY</p>
+  <p class="body">
+    Baga is currently distributed by invitation. Fill in your name and
+    a quick note — we'll review and get back to you.
+  </p>
 
+  <form id="form">
+    <label>
+      Your name
+      <input type="text" id="name" maxlength="80" required autocomplete="off" />
+    </label>
+
+    <label>
+      How do you know us / why you'd like access (optional)
+      <textarea id="message" maxlength="600"></textarea>
+    </label>
+
+    <div class="id-chip">
+      <strong>Your player ID</strong>
+      <span id="pid">—</span>
+    </div>
+
+    <button type="submit" id="submitBtn">Send request</button>
+
+    <div class="status" id="status"></div>
+  </form>
+</main>
+
+<script>
+  // Deployed Cloud Function URL. v2 functions run on Cloud Run, hence
+  // the *.a.run.app domain. CORS in the Function is whitelisted to
+  // https://bagame.app — if you ever move this page to a different
+  // origin, update the cors option in firebase-functions/index.ts and
+  // redeploy.
+  var FN_URL = 'https://submitaccessrequest-yuoxok347q-as.a.run.app';
+
+  function qp(name) {
+    var m = new RegExp('[?&]' + name + '=([^&]*)').exec(location.search);
+    return m ? decodeURIComponent(m[1].replace(/\+/g, ' ')) : '';
+  }
+
+  var pid  = qp('playerId');
+  var name = qp('name');
+
+  document.getElementById('pid').textContent = pid || '(missing — open this page from inside Baga)';
+  if (name) document.getElementById('name').value = name;
+
+  var form    = document.getElementById('form');
+  var btn     = document.getElementById('submitBtn');
+  var statusEl = document.getElementById('status');
+
+  function setStatus(kind, msg) {
+    statusEl.className = 'status show ' + kind;
+    statusEl.textContent = msg;
+  }
+
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault();
+    if (!pid) {
+      setStatus('err', 'Player ID is missing. Open this page from inside the Baga app.');
+      return;
+    }
+    var nameVal = document.getElementById('name').value.trim();
+    var msgVal  = document.getElementById('message').value.trim();
+    if (!nameVal) {
+      setStatus('err', 'Please enter your name.');
+      return;
+    }
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+    try {
+      var res = await fetch(FN_URL, {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify({ playerId: pid, name: nameVal, message: msgVal }),
+      });
+      var json = await res.json().catch(function () { return {}; });
+      if (res.ok && json.ok) {
+        setStatus('ok', "Request sent. We'll get back to you. You can close this window.");
+        btn.textContent = 'Sent';
+      } else {
+        setStatus('err', (json && json.error) || ('Failed (' + res.status + ').'));
+        btn.disabled = false;
+        btn.textContent = 'Send request';
+      }
+    } catch (err) {
+      setStatus('err', 'Network error. Check your connection and try again.');
+      btn.disabled = false;
+      btn.textContent = 'Send request';
+    }
+  });
+</script>
+</body>
+</html>
